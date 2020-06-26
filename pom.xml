@@ -14,6 +14,7 @@
 	<version>1.0</version>
 	<name>back-end-spring-rest</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
