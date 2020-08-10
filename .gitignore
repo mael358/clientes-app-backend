@@ -33,3 +33,6 @@ build/
 .mvn/*
 mvnw
 mvnw.cmd
+bin/*
+uploads/*
+

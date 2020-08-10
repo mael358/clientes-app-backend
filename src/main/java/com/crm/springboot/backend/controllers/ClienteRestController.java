@@ -1,8 +1,13 @@
 package com.crm.springboot.backend.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -23,8 +28,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.crm.springboot.backend.models.entity.Cliente;
 import com.crm.springboot.backend.models.services.IClienteService;
@@ -45,9 +52,7 @@ public class ClienteRestController {
 	
 	@GetMapping("/clientes/page/{page}")
 	public Page<Cliente> index(@PathVariable Integer page){
-		
 		Pageable pageable = PageRequest.of(page, 4);
-		
 		return clienteService.findAll(pageable);
 	}
 	
@@ -178,5 +183,33 @@ public class ClienteRestController {
 		response.put("mensaje", "El cliente ha sido eliminado con éxito");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-	
+
+	@PostMapping("/clientes/upload")
+	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
+		Map<String, Object> response = new HashMap<>();
+		
+		Cliente cliente = clienteService.findById(id);
+		
+		if (!archivo.isEmpty()) {
+			// Obteniendo el nombre original del archivo subido y asignandole un UUID para que no hayan repetidos
+			String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename().replace(" ", "");
+			Path rutaArchivo = Paths.get("uploads").resolve(nombreArchivo).toAbsolutePath();
+			
+			try {
+				Files.copy(archivo.getInputStream(), rutaArchivo);
+			} catch (IOException e) {
+				response.put("mensaje", "Error al subir la imagen del cliente " + nombreArchivo);
+				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			cliente.setFoto(nombreArchivo);
+			clienteService.save(cliente);
+			
+			response.put("cliente", cliente);
+			response.put("mensaje", "has subido correctamente la imagen: " + nombreArchivo);
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+	}
 }
