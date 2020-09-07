@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.springboot.backend.models.dao.IClienteDao;
 import com.crm.springboot.backend.models.entity.Cliente;
+import com.crm.springboot.backend.models.entity.Municipio;
 
 @Service
 public class ClienteService implements IClienteService {
@@ -48,5 +49,11 @@ public class ClienteService implements IClienteService {
 		clienteDao.deleteById(id);
 	}
 
+
+	@Override
+	public List<Municipio> findAllMunicipios() {
+		clienteDao.findAllMunicipios();
+		return null;
+	}
 	
 }
