@@ -52,8 +52,7 @@ public class ClienteService implements IClienteService {
 
 	@Override
 	public List<Municipio> findAllMunicipios() {
-		clienteDao.findAllMunicipios();
-		return null;
+		return clienteDao.findAllMunicipios();
 	}
 	
 }
