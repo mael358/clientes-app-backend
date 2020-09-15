@@ -19,10 +19,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter{
 	
-	private static final String CRM_CLIENT = "CRM_CLIENT";
-	private static final int ACTIVE_SESSION = 3600;
-	private static final int REFRESH_SESSION = 3600;
-	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -39,12 +35,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
-		.withClient(CRM_CLIENT)
-		.secret(passwordEncoder.encode("MY_CRM_CLIENT"))
+		.withClient(JwtConfig.CRM_CLIENT)
+		.secret(passwordEncoder.encode(JwtConfig.CRM_CLIENT_SECRET))
 		.scopes("read", "write")
 		.authorizedGrantTypes("password", "refresh_token")
-		.accessTokenValiditySeconds(ACTIVE_SESSION)
-		.refreshTokenValiditySeconds(REFRESH_SESSION);
+		.accessTokenValiditySeconds(JwtConfig.ACTIVE_SESSION)
+		.refreshTokenValiditySeconds(JwtConfig.REFRESH_SESSION);
 	}
 
 	@Override
@@ -62,6 +58,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+		jwtAccessTokenConverter.setSigningKey(JwtConfig.LLAVE_SECRETA);
 		return jwtAccessTokenConverter;
 	}
 }
