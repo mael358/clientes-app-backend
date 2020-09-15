@@ -19,7 +19,7 @@ import com.crm.springboot.backend.models.dao.IUsuarioDao;
 import com.crm.springboot.backend.models.entity.Usuario;
 
 @Service
-public class UsuarioService implements UserDetailsService{
+public class UsuarioService implements IUsuarioService, UserDetailsService{
 
 	private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 	
@@ -43,6 +43,11 @@ public class UsuarioService implements UserDetailsService{
 				.collect(Collectors.toList());
 		
 		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true, authorities);
+	}
+
+	@Override
+	public Usuario findByUserName(String username) {
+		return usuarioDao.findByUsername(username);
 	}
 	
 }
