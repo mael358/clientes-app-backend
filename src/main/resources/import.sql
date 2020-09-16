@@ -65,14 +65,14 @@ INSERT INTO clientes (municipio_id, nombre, apellido, create_at, email) VALUES (
 INSERT INTO clientes (municipio_id, nombre, apellido, create_at, email) VALUES (52, "Yoshio","Raven","2019-11-08","dolor.Nulla.semper@dolordolor.edu");
 
 /*CREAMOS ALGUNOS USUARIOS Y ROLES*/
-INSERT INTO `usuarios` (username, password, enabled) VALUES ('mvelasquez', '$2a$10$RducO2k5Y49L7MRKacUKqexonMYftRmJYZMCp2xSUxNR7hhMusmua', 1);
-INSERT INTO `usuarios` (username, password, enabled) VALUES ('jocana', '$2a$10$esnYbZzwrVaskCZC8To/uuVSUYZWFmKsCe0Jc12eFN8G01QyzNalW', 1);
+INSERT INTO `usuarios` (username, password, enabled, nombre, apellido, email) VALUES ('mvelasquez', '$2a$10$RducO2k5Y49L7MRKacUKqexonMYftRmJYZMCp2xSUxNR7hhMusmua', 1, 'Marcos', 'Velasquez', 'marcosv200007@gmail.com');
+INSERT INTO `usuarios` (username, password, enabled, nombre, apellido, email) VALUES ('jocana', '$2a$10$esnYbZzwrVaskCZC8To/uuVSUYZWFmKsCe0Jc12eFN8G01QyzNalW', 1, 'Jose','Ocaña','jocana@cafeleon.net');
 
-INSERT INTO `roles` (nombre) VALUES ('ROLE_USER');
 INSERT INTO `roles` (nombre) VALUES ('ROLE_ADMIN');
+INSERT INTO `roles` (nombre) VALUES ('ROLE_USER');
 
-INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (1, 2);
 INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (1, 1);
+INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (1, 2);
 INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (2, 2);
 
 
