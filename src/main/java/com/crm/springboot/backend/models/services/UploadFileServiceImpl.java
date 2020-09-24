@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class UploadFileServiceImpl implements IUploadFileService {
 	
-	private final static String DIRECTORIO_UPLOAD = "uploads";
+	private final static String DIRECTORIO_UPLOAD = "src/main/resources/uploads";
 	
 	private final Logger log = LoggerFactory.getLogger(UploadFileServiceImpl.class);
 
