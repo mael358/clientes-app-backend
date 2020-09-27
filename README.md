@@ -1,2 +1,2 @@
 # clientes-app-backend
-Backend de aplicación de Angular 9 hecha con Spring Framework 5 y MySQL
+Backend de aplicación de Angular 10 hecha con Spring Framework 5 y MySQL
