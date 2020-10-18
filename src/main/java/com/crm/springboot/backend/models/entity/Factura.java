@@ -3,7 +3,9 @@ package com.crm.springboot.backend.models.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="facturas")
@@ -24,6 +26,14 @@ public class Factura implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "factura_id")
+	private List<ItemFactura> items;
+
+	public Factura() {
+		this.items = new ArrayList<>();
+	}
 
 	@PrePersist
 	public void prePersist() {
@@ -68,6 +78,14 @@ public class Factura implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<ItemFactura> getItems() {
+		return items;
+	}
+
+	public void setItems(List<ItemFactura> items) {
+		this.items = items;
 	}
 
 	private static final long serialVersionUID = 1L;
