@@ -13,8 +13,12 @@ public class ItemFactura  implements Serializable {
 
     private Integer cantidad;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
+
     public Double calcularTotal(){
-        return cantidad.doubleValue();
+        return cantidad.doubleValue() * producto.getPrecio();
     }
 
     private static final long serialVersionUID = 1L;

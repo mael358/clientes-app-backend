@@ -11,11 +11,9 @@ import java.util.List;
 @Table(name="facturas")
 public class Factura implements Serializable {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 
 	private String descripcion;
 	private String observacion;
@@ -86,6 +84,14 @@ public class Factura implements Serializable {
 
 	public void setItems(List<ItemFactura> items) {
 		this.items = items;
+	}
+
+	public Double calcularGranTotal(){
+		Double total = 0.00;
+		for (ItemFactura linea: items){
+			total += linea.calcularTotal();
+		}
+		return total;
 	}
 
 	private static final long serialVersionUID = 1L;
