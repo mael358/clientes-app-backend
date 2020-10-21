@@ -48,7 +48,7 @@ public class ItemFactura  implements Serializable {
         return serialVersionUID;
     }
 
-    public Double calcularTotal(){
+    public Double getTotal(){
         return cantidad.doubleValue() * producto.getPrecio();
     }
 

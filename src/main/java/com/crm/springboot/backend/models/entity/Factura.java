@@ -90,10 +90,10 @@ public class Factura implements Serializable {
 		this.items = items;
 	}
 
-	public Double calcularGranTotal(){
+	public Double getTotal(){
 		Double total = 0.00;
 		for (ItemFactura linea: items){
-			total += linea.calcularTotal();
+			total += linea.getTotal();
 		}
 		return total;
 	}
