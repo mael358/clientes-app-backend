@@ -2,6 +2,8 @@ package com.crm.springboot.backend.models.services;
 
 import java.util.List;
 
+import com.crm.springboot.backend.models.dao.IFacturaDao;
+import com.crm.springboot.backend.models.entity.Factura;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +19,9 @@ public class ClienteService implements IClienteService {
 
 	@Autowired
 	private IClienteDao clienteDao;
+
+	@Autowired
+	private IFacturaDao facturaDao;
 	
 	@Override
 	@Transactional(readOnly=true)
@@ -54,5 +59,23 @@ public class ClienteService implements IClienteService {
 	public List<Municipio> findAllMunicipios() {
 		return clienteDao.findAllMunicipios();
 	}
-	
+
+	@Override
+	@Transactional(readOnly = true)
+	public Factura findFacturaById(Long id) {
+		return facturaDao.findById(id).orElse(null);
+	}
+
+	@Override
+	@Transactional
+	public Factura save(Factura factura) {
+		return facturaDao.save(factura);
+	}
+
+	@Override
+	@Transactional
+	public void deleteFacturaById(Long id) {
+		facturaDao.deleteById(id);
+	}
+
 }
