@@ -3,7 +3,9 @@ package com.crm.springboot.backend.models.services;
 import java.util.List;
 
 import com.crm.springboot.backend.models.dao.IFacturaDao;
+import com.crm.springboot.backend.models.dao.IProductoDao;
 import com.crm.springboot.backend.models.entity.Factura;
+import com.crm.springboot.backend.models.entity.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +24,9 @@ public class ClienteService implements IClienteService {
 
 	@Autowired
 	private IFacturaDao facturaDao;
+
+	@Autowired
+	private IProductoDao productoDao;
 	
 	@Override
 	@Transactional(readOnly=true)
@@ -76,6 +81,12 @@ public class ClienteService implements IClienteService {
 	@Transactional
 	public void deleteFacturaById(Long id) {
 		facturaDao.deleteById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Producto> findProductoByNombre(String term) {
+		return productoDao.findByNombre(term);
 	}
 
 }
