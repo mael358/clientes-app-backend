@@ -73,7 +73,7 @@ public class ClienteService implements IClienteService {
 
 	@Override
 	@Transactional
-	public Factura save(Factura factura) {
+	public Factura saveFactura(Factura factura) {
 		return facturaDao.save(factura);
 	}
 
