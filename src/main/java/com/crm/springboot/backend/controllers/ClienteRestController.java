@@ -63,7 +63,7 @@ public class ClienteRestController {
 		return clienteService.findAll(pageable);
 	}
 	
-	// @Secured({"ROLE_USER", "ROLE_ADMIN"})
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@GetMapping("/clientes/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		Cliente cliente = null;
