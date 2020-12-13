@@ -52,6 +52,16 @@ public class Cliente implements Serializable {
 	@JsonIgnoreProperties(value={"cliente","hibernateLazyInitializer","handler"}, allowSetters = true)
 	private List<Factura> facturas;
 
+	public Cliente(Long id, @NotEmpty(message = "no puede estar vacío") @Size(min = 4, max = 12, message = "el tamaño debe ser entre 4 y 12") String nombre, @NotEmpty(message = "no puede estar vacío") String apellido, @NotEmpty(message = "no puede estar vacío") @Email(message = "Debe ser una direccion de corre valida") String email, @NotNull(message = "el municipio no puede estar vacio") Municipio municipio) {
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+		this.createAt = new Date();
+		this.municipio = municipio;
+		this.facturas = new ArrayList<>();
+	}
+
 	public Cliente() {
 		this.facturas = new ArrayList<>();
 	}
