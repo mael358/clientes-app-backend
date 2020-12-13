@@ -48,9 +48,11 @@ public class ClienteRestController {
 	
 	@Autowired
 	private IUploadFileService uploadService;
-	
 
-	
+	public ClienteRestController(IClienteService clienteService) {
+		this.clienteService = clienteService;
+	}
+
 	@GetMapping("/clientes")
 	public List<Cliente> index(){
 		
