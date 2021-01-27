@@ -18,7 +18,7 @@ public class BackEndSpringRestApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		String password = "Tcl.2020";
+		String password = "demo";
 		
 		for (int i = 0; i < 4; i++) {
 			String bcrypt = passwordEncoder.encode(password);
