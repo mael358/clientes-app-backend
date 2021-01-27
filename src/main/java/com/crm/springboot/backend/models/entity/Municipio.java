@@ -26,6 +26,8 @@ public class Municipio implements Serializable {
 		this.nombre = nombre;
 	}
 
+	public Municipio(){ }
+
 	public Long getId() {
 		return id;
 	}
