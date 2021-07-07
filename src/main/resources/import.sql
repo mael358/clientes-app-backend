@@ -51,7 +51,7 @@ INSERT INTO municipio (id, codigo, nombre) VALUES (49,'0408','Pochuta');
 INSERT INTO municipio (id, codigo, nombre) VALUES (50,'0409','Patzicía');
 
 
-INSERT INTO clientes (municipio_id, nombre, apellido, create_at, email) VALUES (1,"Beau","Signe","2020-08-30","et.netus.et@gravida.edu");
+INSERT INTO clientes (municipio_id, nombre, apellido, create_at, email) VALUES (1,"Marcos","Velasquez","2020-08-30","marcosv200007@gmail.com");
 INSERT INTO clientes (municipio_id, nombre, apellido, create_at, email) VALUES (1,"Yoshio","Raven","2019-11-08","dolor.Nulla.semper@dolordolor.edu");
 INSERT INTO clientes (municipio_id, nombre, apellido, create_at, email) VALUES (1,"Cooper","Hayfa","2021-04-23","eu.nibh@Duisvolutpat.org");
 INSERT INTO clientes (municipio_id, nombre, apellido, create_at, email) VALUES (255,"Leonard","Hanae","2020-02-10","odio.auctor.vitae@ornaretortor.ca");
@@ -65,8 +65,8 @@ INSERT INTO clientes (municipio_id, nombre, apellido, create_at, email) VALUES (
 INSERT INTO clientes (municipio_id, nombre, apellido, create_at, email) VALUES (52, "Yoshio","Raven","2019-11-08","dolor.Nulla.semper@dolordolor.edu");
 
 /*CREAMOS ALGUNOS USUARIOS Y ROLES*/
-INSERT INTO `usuarios` (username, password, enabled, nombre, apellido, email) VALUES ('mvelasquez', '$2a$10$RducO2k5Y49L7MRKacUKqexonMYftRmJYZMCp2xSUxNR7hhMusmua', 1, 'Marcos', 'Velasquez', 'marcosv200007@gmail.com');
-INSERT INTO `usuarios` (username, password, enabled, nombre, apellido, email) VALUES ('jocana', '$2a$10$esnYbZzwrVaskCZC8To/uuVSUYZWFmKsCe0Jc12eFN8G01QyzNalW', 1, 'Jose','Ocaña','jocana@cafeleon.net');
+INSERT INTO `usuarios` (username, password, enabled, nombre, apellido, email) VALUES ('admin', '$2a$10$H0CPfUWSXHo7DlcdU/unSOpWf6kV1nmHYbgBM1dExUbk/poN53JYK', 1, 'Administrador', '1', 'admin@mail.com');
+INSERT INTO `usuarios` (username, password, enabled, nombre, apellido, email) VALUES ('user', '$2a$10$H0CPfUWSXHo7DlcdU/unSOpWf6kV1nmHYbgBM1dExUbk/poN53JYK', 1, 'Usuario','2','user@mail.com');
 
 INSERT INTO `roles` (nombre) VALUES ('ROLE_ADMIN');
 INSERT INTO `roles` (nombre) VALUES ('ROLE_USER');
@@ -75,6 +75,26 @@ INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (1, 1);
 INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (1, 2);
 INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (2, 2);
 
+/*Insertando datos de ejemplo para productos*/
+INSERT INTO producto (nombre, precio, create_at) VALUES ('Panasonic Pantalla LCD', 4999, now());
+INSERT INTO producto (nombre, precio, create_at) VALUES ('Sony camara digital', 2700, now());
+INSERT INTO producto (nombre, precio, create_at) VALUES ('Apple iPhone 8 64GB', 7500, now());
+INSERT INTO producto (nombre, precio, create_at) VALUES ('Apple MacBook Pro 2020', 16500, now());
+INSERT INTO producto (nombre, precio, create_at) VALUES ('Xiaomi Mi Mix 2S', 3800, now());
+INSERT INTO producto (nombre, precio, create_at) VALUES ('Amazon Kindle Paperwhite', 999, now());
+INSERT INTO producto (nombre, precio, create_at) VALUES ('Teclado Mecanico Razer', 700, now());
+INSERT INTO producto (nombre, precio, create_at) VALUES ('Monitor Asus 27 Pulg', 1420, now());
+INSERT INTO producto (nombre, precio, create_at) VALUES ('Audifonos Bose', 500, now());
+INSERT INTO producto (nombre, precio, create_at) VALUES ('Pachon tecnológico', 214, now());
 
+/*Creamos unas facturas de ejemplo*/
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES ('Factura equipo electrónico', null, 1, now());
+INSERT INTO facturas_item (cantidad, factura_id, producto_id) VALUES (1, 1, 1);
+INSERT INTO facturas_item (cantidad, factura_id, producto_id) VALUES (2, 1, 4);
+INSERT INTO facturas_item (cantidad, factura_id, producto_id) VALUES (1, 1, 5);
+INSERT INTO facturas_item (cantidad, factura_id, producto_id) VALUES (1, 1, 7);
+
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES ('Factura bicicleta', 'Nota importante', 1, now());
+INSERT INTO facturas_item (cantidad, factura_id, producto_id) VALUES (3, 2, 6);
 
 

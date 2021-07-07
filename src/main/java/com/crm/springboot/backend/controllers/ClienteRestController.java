@@ -38,7 +38,7 @@ import com.crm.springboot.backend.models.entity.Municipio;
 import com.crm.springboot.backend.models.services.IClienteService;
 import com.crm.springboot.backend.models.services.IUploadFileService;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "https://clientes-crm-demo.web.app"})
 @RestController
 @RequestMapping("/api") 	
 public class ClienteRestController {
@@ -48,9 +48,11 @@ public class ClienteRestController {
 	
 	@Autowired
 	private IUploadFileService uploadService;
-	
 
-	
+	public ClienteRestController(IClienteService clienteService) {
+		this.clienteService = clienteService;
+	}
+
 	@GetMapping("/clientes")
 	public List<Cliente> index(){
 		

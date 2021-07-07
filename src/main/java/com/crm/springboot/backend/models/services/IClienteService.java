@@ -2,6 +2,8 @@ package com.crm.springboot.backend.models.services;
 
 import java.util.List;
 
+import com.crm.springboot.backend.models.entity.Factura;
+import com.crm.springboot.backend.models.entity.Producto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,4 +23,12 @@ public interface IClienteService {
 	public void delete(Long id);
 	
 	public List<Municipio> findAllMunicipios();
+
+	public Factura findFacturaById(Long id);
+
+	public Factura saveFactura(Factura factura);
+
+	public void deleteFacturaById(Long id);
+
+	public List<Producto> findProductoByNombre(String term);
 }
