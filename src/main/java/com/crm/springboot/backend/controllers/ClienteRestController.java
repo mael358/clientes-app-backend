@@ -75,15 +75,15 @@ public class ClienteRestController {
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta a la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 		
 		if(cliente == null) {
 			response.put("mensaje", "El cliente con ID: ".concat(id.toString().concat(" no existe en la base de datos :(")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+		return new ResponseEntity<>(cliente, HttpStatus.OK);
 	}
 	
 	@Secured("ROLE_ADMIN")
@@ -95,16 +95,6 @@ public class ClienteRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		if (result.hasErrors()) {
-			/*
-			 * FORMA DE JAVA 8 DE ENLISTAR LOS ERRORES EN UNA LISTA PARA DEVOLVERLA AL FRONTEND
-			 * 
-			List<String> errors = new ArrayList<String>();
-			result.getFieldError();
-			
-			for (FieldError err: result.getFieldErrors()) {
-				errors.add("El campo '"+ err.getField() + "' "+ err.getDefaultMessage());
-			}
-			*/
 			List<String> errors = result.getFieldErrors()
 					.stream()
 					.map(err -> "El campo '"+ err.getField() + "' "+ err.getDefaultMessage())
@@ -112,7 +102,7 @@ public class ClienteRestController {
 			
 			response.put("errors", errors);
 			
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 			
 		try {
@@ -125,7 +115,7 @@ public class ClienteRestController {
 		
 		response.put("mensaje", "El cliente ".concat(cliente.getNombre()).concat(" ha sido creado con exito!"));
 		response.put("cliente", nuevoCliente);
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	
 	@Secured("ROLE_ADMIN")
@@ -137,16 +127,6 @@ public class ClienteRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		if (result.hasErrors()) {
-			/*
-			 * FORMA DE JAVA 8 DE ENLISTAR LOS ERRORES EN UNA LISTA PARA DEVOLVERLA AL FRONTEND
-			 * 
-			List<String> errors = new ArrayList<String>();
-			result.getFieldError();
-			
-			for (FieldError err: result.getFieldErrors()) {
-				errors.add("El campo '"+ err.getField() + "' "+ err.getDefaultMessage());
-			}
-			*/
 			List<String> errors = result.getFieldErrors()
 					.stream()
 					.map(err -> "El campo '"+ err.getField() + "' "+ err.getDefaultMessage())
@@ -154,12 +134,12 @@ public class ClienteRestController {
 			
 			response.put("errors", errors);
 			
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 		
 		if(clienteActual == null) {
 			response.put("mensaje", "Error, nose pudo editar el cliente con ID: ".concat(id.toString().concat(" no existe en la base de datos :(")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 		}
 		
 		Cliente clienteUpdated = null;	
@@ -174,12 +154,12 @@ public class ClienteRestController {
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el update a la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		response.put("mensaje", "El cliente ".concat(clienteUpdated.getNombre()).concat(" ha sido actualizado con éxito!"));
 		response.put("cliente", clienteUpdated);	
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	
 	@Secured("ROLE_ADMIN")
@@ -199,11 +179,11 @@ public class ClienteRestController {
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el delete a la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		response.put("mensaje", "El cliente ha sido eliminado con éxito");
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
@@ -220,7 +200,7 @@ public class ClienteRestController {
 			} catch (IOException e) {
 				response.put("mensaje", "Error al subir la imagen del cliente ");
 				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
-				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 			
 			//Borra la foto en caso de que ya exista una foto asignada al cliente
@@ -234,7 +214,7 @@ public class ClienteRestController {
 			response.put("mensaje", "has subido correctamente la imagen: " + nombreArchivo);
 		}
 		
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	@GetMapping("uploads/img/{nombreFoto:.+}")
@@ -248,7 +228,7 @@ public class ClienteRestController {
 		HttpHeaders cabecera = new HttpHeaders();
 		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
 		
-		return new ResponseEntity<Resource>(recurso, cabecera,HttpStatus.OK);
+		return new ResponseEntity<>(recurso, cabecera, HttpStatus.OK);
 	}
 	
 	@Secured("ROLE_ADMIN")
